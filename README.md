@@ -1,0 +1,51 @@
+# urirun-declarative
+
+Define **urirun connector routes declaratively** — a spec dict (scheme, target, routes with
+method/path/schema) becomes typed URI bindings with **no Python handler code**. The urirun `fetch`
+adapter then resolves each route. Extracted from `urirun.connectors.declarative` as a standalone,
+dependency-free package.
+
+Pure stdlib (`pathlib`, `typing`) — **no `urirun` dependency** — so a declarative connector
+(e.g. `urirun-connector-ksef`) can depend on just this, not the whole backend.
+
+## Why it's its own package
+
+`extraction_audit.py` reports it a clean leaf (zero urirun imports, stdlib only). It is a distinct,
+reusable capability — spec → bindings — consumed by declarative connectors. Same lift case as
+`urirun-cdp` / `urirun-uinput` / `urirun-openapi-import`.
+
+## Install
+
+```bash
+pip install -e .          # editable, from this repo
+```
+
+## Use
+
+```python
+from urirun_declarative import declarative
+
+spec = declarative.load_spec("ksef.routes.yaml")
+bindings = declarative.bindings_from_spec(spec)
+```
+
+## Back-compat
+
+The old import path still works via a re-export shim in the urirun package:
+
+```python
+from urirun.connectors import declarative   # → urirun_declarative.declarative (sys.modules shim)
+```
+
+A connector that imports this at module top (e.g. ksef) declares `urirun-declarative` in its own
+dependencies, so it is installed wherever that connector runs.
+
+## Tests
+
+```bash
+PYTHONPATH=../urirun/adapters/python python -m pytest tests/ -q
+```
+
+## License
+
+Apache-2.0 — see [LICENSE](LICENSE).

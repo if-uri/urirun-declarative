@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+src/urirun_declarative/__init__.py
+src/urirun_declarative/declarative.py
+src/urirun_declarative.egg-info/PKG-INFO
+src/urirun_declarative.egg-info/SOURCES.txt
+src/urirun_declarative.egg-info/dependency_links.txt
+src/urirun_declarative.egg-info/top_level.txt
+tests/test_declarative.py

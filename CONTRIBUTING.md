@@ -1,0 +1,40 @@
+# Contributing to ifURI
+
+Thanks for helping build the **ifURI / urirun** ecosystem.
+
+## Ground rules
+- Keep `make test` green and the docs standard passing (`make docs-lint` in `if-uri/ifuri-com`).
+- Keep `make lint` (ruff) and `make complexity` green — both are CI-gated. `make complexity`
+  fails if any Python function exceeds CC=15; extract helpers or a dispatch table to stay under.
+- Match the surrounding code and prose style; one logical change per PR; explain the *why*.
+
+## Workflow
+1. Branch from `main`.
+2. Make the change; update `CHANGELOG.md` ([Keep a Changelog](https://keepachangelog.com)) and bump `VERSION` when user-facing.
+3. Run the repo's `make test`. Sites publish via `make deploy` (see [docs.ifuri.com/repo-standards](https://docs.ifuri.com/repo-standards.html)).
+4. Open a PR against `if-uri/<repo>`.
+
+## Tests must be environment-independent
+The test runner (and CI) may run with **no connectors installed**. So urirun *core*
+tests must exercise **builtin routes only** — `error://`, `registry://`, `log://` —
+never a connector route like `time://…`, which red-fails with "Route not found" in a
+clean environment. A test that genuinely needs a connector must **skip** (not fail)
+when it's absent:
+
+```python
+import pytest
+from urirun import testing
+
+@pytest.mark.skipif(not testing.connector_installed("time"), reason="time-tools not installed")
+def test_with_time_connector(): ...
+```
+
+(`urirun.testing.connector_installed(scheme)` is a side-effect-free predicate.)
+
+## Connectors
+New connector? Scaffold with `make new-connector ID=…` in `if-uri/connect.ifuri.com` and
+submit through [connect.ifuri.com](https://connect.ifuri.com). Every connector emits the
+`urirun.bindings.v2` contract and documents its `scheme://` URI in the README.
+
+## License
+By contributing you agree your work is licensed under this repository's `LICENSE`.
