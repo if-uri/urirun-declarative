@@ -1,5 +1,22 @@
 # Changelog
 
+## [Unreleased]
+
+## [0.1.1] - 2026-07-05
+
+### Docs
+- Update README.md
+
+### Test
+- Update tests/__pycache__/test_declarative.cpython-313-pytest-9.1.1.pyc
+- Update tests/test_declarative.py
+- Update tests/test_spec_pure.py
+
+### Other
+- Update src/urirun_declarative.egg-info/PKG-INFO
+- Update uv.lock
+
+
 All notable changes to `urirun-declarative` are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/).
 

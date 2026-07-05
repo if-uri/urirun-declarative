@@ -1,6 +1,8 @@
 """Tests for declarative HTTP connectors + the templated fetch adapter."""
 
 from __future__ import annotations
+import pytest as _pg  # noqa: E402
+_pg.importorskip("urirun")  # integration tests plug into urirun; the isolated package env skips them
 
 import json
 
