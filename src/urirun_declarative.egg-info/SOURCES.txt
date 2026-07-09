@@ -8,3 +8,4 @@ src/urirun_declarative.egg-info/SOURCES.txt
 src/urirun_declarative.egg-info/dependency_links.txt
 src/urirun_declarative.egg-info/top_level.txt
 tests/test_declarative.py
+tests/test_spec_pure.py
