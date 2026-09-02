@@ -3,7 +3,7 @@ PYTHON ?= python3
 .PHONY: install doctor-build doctor-test doctor-health test check
 
 install:
-	$(PYTHON) -m pip install -e .
+	$(PYTHON) -m pip install -e ".[test]"
 
 doctor-build:
 	$(PYTHON) -m compileall -q src
