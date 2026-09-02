@@ -6,13 +6,13 @@ install:
 	$(PYTHON) -m pip install -e ".[test]"
 
 doctor-build:
-	$(PYTHON) -m compileall -q src
+	$(PYTHON) -c "import ast, pathlib; [ast.parse(path.read_text(encoding='utf-8'), filename=str(path)) for path in pathlib.Path('src').rglob('*.py')]"
 
 doctor-test:
-	PYTHONPATH=src $(PYTHON) -m pytest -q
+	PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src $(PYTHON) -m pytest -q
 
 doctor-health:
-	PYTHONPATH=src $(PYTHON) -c "import urirun_declarative"
+	PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src $(PYTHON) -c "import urirun_declarative"
 
 test: doctor-test
 
